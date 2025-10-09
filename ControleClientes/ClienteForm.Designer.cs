@@ -33,7 +33,7 @@
             pnlAcao = new Panel();
             btnNovo = new Button();
             btnVisualizar = new Button();
-            dataGridView1 = new DataGridView();
+            gridClientes = new DataGridView();
             colId = new DataGridViewTextBoxColumn();
             colNome = new DataGridViewTextBoxColumn();
             colEmail = new DataGridViewTextBoxColumn();
@@ -41,6 +41,8 @@
             txtPesquisarNome = new TextBox();
             btnPesquisar = new Button();
             tpClienteCadastro = new TabPage();
+            lblGenero = new Label();
+            cmbGenero = new ComboBox();
             btnCancelar = new Button();
             btnSalvar = new Button();
             btnExcluir = new Button();
@@ -48,10 +50,12 @@
             lblEmail = new Label();
             txtNome = new TextBox();
             lblNome = new Label();
+            cmbEstadoCivil = new ComboBox();
+            lblEstadoCivil = new Label();
             tcCliente.SuspendLayout();
             tpClienteConsulta.SuspendLayout();
             pnlAcao.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)gridClientes).BeginInit();
             pnlPesquisa.SuspendLayout();
             tpClienteCadastro.SuspendLayout();
             SuspendLayout();
@@ -70,7 +74,7 @@
             // tpClienteConsulta
             // 
             tpClienteConsulta.Controls.Add(pnlAcao);
-            tpClienteConsulta.Controls.Add(dataGridView1);
+            tpClienteConsulta.Controls.Add(gridClientes);
             tpClienteConsulta.Controls.Add(pnlPesquisa);
             tpClienteConsulta.Location = new Point(4, 24);
             tpClienteConsulta.Name = "tpClienteConsulta";
@@ -114,22 +118,23 @@
             btnVisualizar.UseVisualStyleBackColor = true;
             btnVisualizar.Click += btnVisualizar_Click;
             // 
-            // dataGridView1
+            // gridClientes
             // 
-            dataGridView1.AllowUserToAddRows = false;
-            dataGridView1.AllowUserToDeleteRows = false;
-            dataGridView1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { colId, colNome, colEmail });
-            dataGridView1.Location = new Point(3, 38);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.ReadOnly = true;
-            dataGridView1.Size = new Size(613, 315);
-            dataGridView1.TabIndex = 2;
+            gridClientes.AllowUserToAddRows = false;
+            gridClientes.AllowUserToDeleteRows = false;
+            gridClientes.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            gridClientes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            gridClientes.Columns.AddRange(new DataGridViewColumn[] { colId, colNome, colEmail });
+            gridClientes.Location = new Point(3, 38);
+            gridClientes.Name = "gridClientes";
+            gridClientes.ReadOnly = true;
+            gridClientes.Size = new Size(613, 315);
+            gridClientes.TabIndex = 2;
             // 
             // colId
             // 
             colId.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            colId.DataPropertyName = "Id";
             colId.HeaderText = "Id";
             colId.Name = "colId";
             colId.ReadOnly = true;
@@ -138,6 +143,7 @@
             // colNome
             // 
             colNome.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            colNome.DataPropertyName = "Nome";
             colNome.FillWeight = 50F;
             colNome.HeaderText = "Nome";
             colNome.Name = "colNome";
@@ -146,6 +152,7 @@
             // colEmail
             // 
             colEmail.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            colEmail.DataPropertyName = "Email";
             colEmail.FillWeight = 50F;
             colEmail.HeaderText = "Email";
             colEmail.Name = "colEmail";
@@ -184,6 +191,10 @@
             // 
             // tpClienteCadastro
             // 
+            tpClienteCadastro.Controls.Add(lblEstadoCivil);
+            tpClienteCadastro.Controls.Add(cmbEstadoCivil);
+            tpClienteCadastro.Controls.Add(lblGenero);
+            tpClienteCadastro.Controls.Add(cmbGenero);
             tpClienteCadastro.Controls.Add(btnCancelar);
             tpClienteCadastro.Controls.Add(btnSalvar);
             tpClienteCadastro.Controls.Add(btnExcluir);
@@ -198,6 +209,24 @@
             tpClienteCadastro.TabIndex = 1;
             tpClienteCadastro.Text = "Cadastro";
             tpClienteCadastro.UseVisualStyleBackColor = true;
+            // 
+            // lblGenero
+            // 
+            lblGenero.AutoSize = true;
+            lblGenero.Location = new Point(434, 7);
+            lblGenero.Name = "lblGenero";
+            lblGenero.Size = new Size(45, 15);
+            lblGenero.TabIndex = 8;
+            lblGenero.Text = "Genêro";
+            // 
+            // cmbGenero
+            // 
+            cmbGenero.FormattingEnabled = true;
+            cmbGenero.Location = new Point(434, 27);
+            cmbGenero.Name = "cmbGenero";
+            cmbGenero.Size = new Size(138, 23);
+            cmbGenero.TabIndex = 7;
+            cmbGenero.SelectedIndexChanged += cmbGenero_SelectedIndexChanged;
             // 
             // btnCancelar
             // 
@@ -270,6 +299,24 @@
             lblNome.TabIndex = 0;
             lblNome.Text = "Nome";
             // 
+            // cmbEstadoCivil
+            // 
+            cmbEstadoCivil.FormattingEnabled = true;
+            cmbEstadoCivil.Location = new Point(434, 86);
+            cmbEstadoCivil.Name = "cmbEstadoCivil";
+            cmbEstadoCivil.Size = new Size(121, 23);
+            cmbEstadoCivil.TabIndex = 9;
+            cmbEstadoCivil.SelectedIndexChanged += cmbEstadoCivil_SelectedIndexChanged;
+            // 
+            // lblEstadoCivil
+            // 
+            lblEstadoCivil.AutoSize = true;
+            lblEstadoCivil.Location = new Point(435, 65);
+            lblEstadoCivil.Name = "lblEstadoCivil";
+            lblEstadoCivil.Size = new Size(65, 15);
+            lblEstadoCivil.TabIndex = 10;
+            lblEstadoCivil.Text = "EstadoCivil";
+            // 
             // ClienteForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -282,7 +329,7 @@
             tcCliente.ResumeLayout(false);
             tpClienteConsulta.ResumeLayout(false);
             pnlAcao.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)gridClientes).EndInit();
             pnlPesquisa.ResumeLayout(false);
             pnlPesquisa.PerformLayout();
             tpClienteCadastro.ResumeLayout(false);
@@ -302,15 +349,19 @@
         private Button btnCancelar;
         private Button btnSalvar;
         private Button btnExcluir;
-        private DataGridView dataGridView1;
-        private DataGridViewTextBoxColumn colId;
-        private DataGridViewTextBoxColumn colNome;
-        private DataGridViewTextBoxColumn colEmail;
+        private DataGridView gridClientes;
         private Button btnVisualizar;
         private Button btnNovo;
         private Button btnPesquisar;
         private TextBox txtPesquisarNome;
         private Panel pnlAcao;
         private Panel pnlPesquisa;
+        private DataGridViewTextBoxColumn colId;
+        private DataGridViewTextBoxColumn colNome;
+        private DataGridViewTextBoxColumn colEmail;
+        private ComboBox cmbGenero;
+        private Label lblGenero;
+        private Label lblEstadoCivil;
+        private ComboBox cmbEstadoCivil;
     }
 }
