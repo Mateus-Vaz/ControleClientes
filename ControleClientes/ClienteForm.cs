@@ -5,6 +5,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -55,18 +56,20 @@ namespace ControleClientes
             var clientes = _repository.ListarTodos();
             gridClientes.DataSource = clientes;
         }
-
-        private void ClienteForm_Load(object sender, EventArgs e)
-        {
-
-
-        }
+       
         private void LimparCampos()
         {
             txtNome.Clear();
             txtEmail.Clear();
+            txtCep.Clear();
+            txtLogradouro.Clear();
+            txtBairro.Clear();
+            txtUf.Clear();
+
+
             cmbGenero.SelectedIndex = -1;
             cmbEstadoCivil.SelectedIndex = -1;
+            cmbCidade.SelectedIndex = -1;
             editingId = null;
             gridClientes.ClearSelection();
         }
@@ -80,6 +83,12 @@ namespace ControleClientes
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
+            if (cmbGenero.SelectedItem == null || cmbEstadoCivil.SelectedItem == null)
+            {
+                MessageBox.Show("Preencha os campos em branco antes de salvar.");
+                return;
+            }
+
             ItemEstadoCivil estadoCivil = (ItemEstadoCivil)cmbEstadoCivil.SelectedItem;
             ItemGenero genero = (ItemGenero)cmbGenero.SelectedItem;
             var cliente = new Cliente()
@@ -87,7 +96,12 @@ namespace ControleClientes
                 Nome = txtNome.Text.Trim(),
                 Email = txtEmail.Text.Trim(),
                 Genero = genero.Valor,
-                EstadoCivil =  estadoCivil.Valor
+                EstadoCivil = estadoCivil.Valor,
+                Cep = txtCep.Text.Trim(),
+                Logradouro = txtLogradouro.Text.Trim(),
+                Bairro = txtBairro.Text.Trim(),
+                Cidade = cmbCidade.Text.Trim(),
+                Uf = txtUf.Text.Trim()
             };
             if (editingId == null)
                 _repository.Adicionar(cliente);
@@ -128,21 +142,71 @@ namespace ControleClientes
             var cliente = (Cliente)gridClientes.SelectedRows[0].DataBoundItem;
             txtNome.Text = cliente.Nome;
             txtEmail.Text = cliente.Email;
+            txtCep.Text = cliente.Cep;
+            txtLogradouro.Text = cliente.Logradouro;
+            txtBairro.Text = cliente.Bairro;
+            cmbCidade.Text = cliente.Cidade;
+            txtUf.Text = cliente.Uf;
+
+
             cmbGenero.SelectedItem = itemGeneros.FirstOrDefault(g => g.Valor == cliente.Genero);
             cmbEstadoCivil.SelectedItem = itemEstadoCivil.FirstOrDefault(ec => ec.Valor == cliente.EstadoCivil);
             editingId = cliente.Id;
             tcCliente.SelectTab(tpClienteCadastro);
         }
-
-        private void cmbGenero_SelectedIndexChanged(object sender, EventArgs e)
+        
+        private async Task<Endereco> BuscarCepAsync(string cep)
         {
+            string url = $"https://viacep.com.br/ws/{cep}/json/";
+            using (HttpClient client = new HttpClient())
+            {
+                HttpResponseMessage response = await client.GetAsync(url);
+                if (response.IsSuccessStatusCode)
+                {
+                    string responseBody = await response.Content.ReadAsStringAsync();
+                    return JsonSerializer.Deserialize<Endereco>(responseBody);
+                }
+                else
+                    throw new Exception($"Consultando o CEP. Código de status: {response.StatusCode}");
+            }
+        }     
 
-        }
-
-        private void cmbEstadoCivil_SelectedIndexChanged(object sender, EventArgs e)
+        private async void btnBuscarCep_Click(object sender, EventArgs e)
         {
+            string cep = new string(txtCep.Text.Where(char.IsDigit).ToArray());
 
+            if (cep.Length > 5)
+                cep = cep.Insert(5, "-");
+
+            txtCep.Text = cep;
+            txtCep.SelectionStart = txtCep.Text.Length;
+
+            if (string.IsNullOrEmpty(cep))
+            {
+                MessageBox.Show("Por favor, insira um CEP válido.", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+            try
+            {
+                Endereco endereco = await BuscarCepAsync(cep);
+                txtLogradouro.Text = endereco.Logradouro;
+                txtBairro.Text = endereco.Bairro;
+                cmbCidade.Text = endereco.Cidade;
+                txtUf.Text = endereco.Uf;
+                txtNumero.Focus();
+            }
+            catch (HttpRequestException ex)
+            {
+                MessageBox.Show($"Erro na requisição HTTP: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (JsonException ex)
+            {
+                MessageBox.Show($"Desserializando o JSON: {ex.Message}", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
-
