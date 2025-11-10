@@ -207,6 +207,7 @@ namespace ControleClientes
             btnPesquisar.TabIndex = 1;
             btnPesquisar.Text = "  &Pesquisar";
             btnPesquisar.UseVisualStyleBackColor = true;
+            btnPesquisar.Click += btnPesquisar_Click;
             // 
             // tpClienteCadastro
             // 

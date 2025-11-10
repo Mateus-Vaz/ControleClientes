@@ -40,6 +40,8 @@ namespace ControleClientes
                 clienteExistente.Bairro = cliente.Bairro;
                 clienteExistente.Cidade = cliente.Cidade;
                 clienteExistente.Uf = cliente.Uf;
+                clienteExistente.CidadeId = cliente.CidadeId;
+
 
                 _context.SaveChanges();
             }
@@ -52,6 +54,12 @@ namespace ControleClientes
                 _context.Clientes.Remove(cliente);
                 _context.SaveChanges();
             }
+        }
+        public IEnumerable<Cidade> ObterPorNome(string nome)
+        {
+            return _context.Cidades
+            .Where(c => c.Nome.ToLower().Contains(nome.ToLower()))
+            .ToList();
         }
     }
 

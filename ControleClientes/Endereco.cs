@@ -20,7 +20,7 @@ namespace ControleClientes
         public string Numero { get; set; }
         [JsonPropertyName("complemento")]
         public string Complemento { get; set; }
-        
+
 
     }
 }

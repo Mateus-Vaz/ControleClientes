@@ -40,5 +40,12 @@ namespace ControleClientes
         {
             LayoutMdi(MdiLayout.ArrangeIcons);
         }
+
+        private void cidadeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CidadeForm cidade = new CidadeForm();
+            cidade.MdiParent = this;
+            cidade.Show();
+        }
     }
 }

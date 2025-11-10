@@ -11,10 +11,12 @@ using System.Windows.Forms;
 
 namespace ControleClientes
 {
-    public partial class ClienteForm : Form
+    public partial class ClienteForm : Form 
     {
         private readonly ClienteRepository _repository;
         private int? editingId = null;
+        private List<Cidade> _cidades;
+
 
         List<ItemGenero> itemGeneros = new List<ItemGenero>()
         {
@@ -50,13 +52,15 @@ namespace ControleClientes
             CarregarEstadoCivil();
             _repository = new ClienteRepository();
             AtualizarGrid();
+            CarregarCidades();
         }
         private void AtualizarGrid()
         {
             var clientes = _repository.ListarTodos();
+            gridClientes.AutoGenerateColumns = false;
             gridClientes.DataSource = clientes;
         }
-       
+
         private void LimparCampos()
         {
             txtNome.Clear();
@@ -85,12 +89,18 @@ namespace ControleClientes
         {
             if (cmbGenero.SelectedItem == null || cmbEstadoCivil.SelectedItem == null)
             {
-                MessageBox.Show("Preencha os campos em branco antes de salvar.");
+                MessageBox.Show("Preencha os campos (Genero) e ou (estado civil) antes de salvar.");
+                return;
+            }
+            if (cmbCidade.SelectedItem == null)
+            {
+                MessageBox.Show("Selecione uma cidade antes de salvar.");
                 return;
             }
 
             ItemEstadoCivil estadoCivil = (ItemEstadoCivil)cmbEstadoCivil.SelectedItem;
             ItemGenero genero = (ItemGenero)cmbGenero.SelectedItem;
+            Cidade cidade = (Cidade)cmbCidade.SelectedItem;
             var cliente = new Cliente()
             {
                 Nome = txtNome.Text.Trim(),
@@ -100,8 +110,11 @@ namespace ControleClientes
                 Cep = txtCep.Text.Trim(),
                 Logradouro = txtLogradouro.Text.Trim(),
                 Bairro = txtBairro.Text.Trim(),
-                Cidade = cmbCidade.Text.Trim(),
-                Uf = txtUf.Text.Trim()
+                Uf = txtUf.Text.Trim(),
+                CidadeId = cidade.Id
+
+
+
             };
             if (editingId == null)
                 _repository.Adicionar(cliente);
@@ -113,6 +126,9 @@ namespace ControleClientes
             LimparCampos();
             AtualizarGrid();
             tcCliente.SelectTab(tpClienteConsulta);
+
+
+
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -145,16 +161,20 @@ namespace ControleClientes
             txtCep.Text = cliente.Cep;
             txtLogradouro.Text = cliente.Logradouro;
             txtBairro.Text = cliente.Bairro;
-            cmbCidade.Text = cliente.Cidade;
             txtUf.Text = cliente.Uf;
 
 
+            var cidade = _cidades.FirstOrDefault(c => c.Id == cliente.Id);
+            cmbCidade.SelectedItem = cidade;
+            txtUf.Text = cidade.Uf;
+
             cmbGenero.SelectedItem = itemGeneros.FirstOrDefault(g => g.Valor == cliente.Genero);
             cmbEstadoCivil.SelectedItem = itemEstadoCivil.FirstOrDefault(ec => ec.Valor == cliente.EstadoCivil);
+
             editingId = cliente.Id;
             tcCliente.SelectTab(tpClienteCadastro);
         }
-        
+
         private async Task<Endereco> BuscarCepAsync(string cep)
         {
             string url = $"https://viacep.com.br/ws/{cep}/json/";
@@ -169,7 +189,7 @@ namespace ControleClientes
                 else
                     throw new Exception($"Consultando o CEP. Código de status: {response.StatusCode}");
             }
-        }     
+        }
 
         private async void btnBuscarCep_Click(object sender, EventArgs e)
         {
@@ -207,6 +227,22 @@ namespace ControleClientes
             {
                 MessageBox.Show(ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+        private void CarregarCidades()
+        {
+            var cidadeRepository = new CidadeRepository();
+            _cidades = cidadeRepository.ListarTodos();
+            cmbCidade.DataSource = _cidades;
+            cmbCidade.DisplayMember = "Nome";
+            cmbCidade.ValueMember = "Id";
+        }
+
+        private void btnPesquisar_Click(object sender, EventArgs e)
+        {
+            var clientes = _repository.ObterPorNome(txtPesquisarNome.Text);
+            gridClientes.AutoGenerateColumns = false;
+            gridClientes.DataSource = clientes;
+
         }
     }
 }
