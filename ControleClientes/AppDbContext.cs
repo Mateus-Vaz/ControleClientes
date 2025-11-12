@@ -13,7 +13,8 @@ namespace ControleClientes
     {
         public DbSet<Cliente> Clientes { get; set; }
         public DbSet<Cidade> Cidades { get; set; }
-   
+        public DbSet<Servico> Servicos { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseNpgsql("Host=localhost;Database=dados;Username=postgres;Password=root");

@@ -19,5 +19,6 @@ namespace ControleClientes
         public string Uf { get; set; }
         public int CidadeId { get; set; }
         public Cidade Cidade { get; set; }
+                
     }
 }

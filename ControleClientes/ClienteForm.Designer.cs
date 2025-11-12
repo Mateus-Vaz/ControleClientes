@@ -84,7 +84,7 @@ namespace ControleClientes
             tcCliente.Location = new Point(-2, -22);
             tcCliente.Name = "tcCliente";
             tcCliente.SelectedIndex = 0;
-            tcCliente.Size = new Size(624, 416);
+            tcCliente.Size = new Size(533, 416);
             tcCliente.TabIndex = 0;
             // 
             // tpClienteConsulta
@@ -95,7 +95,7 @@ namespace ControleClientes
             tpClienteConsulta.Location = new Point(4, 24);
             tpClienteConsulta.Name = "tpClienteConsulta";
             tpClienteConsulta.Padding = new Padding(3);
-            tpClienteConsulta.Size = new Size(616, 388);
+            tpClienteConsulta.Size = new Size(525, 388);
             tpClienteConsulta.TabIndex = 0;
             tpClienteConsulta.Text = "Consulta";
             tpClienteConsulta.UseVisualStyleBackColor = true;
@@ -106,7 +106,7 @@ namespace ControleClientes
             pnlAcao.BackColor = Color.White;
             pnlAcao.Controls.Add(btnNovo);
             pnlAcao.Controls.Add(btnVisualizar);
-            pnlAcao.Location = new Point(-1, 353);
+            pnlAcao.Location = new Point(-92, 353);
             pnlAcao.Name = "pnlAcao";
             pnlAcao.Size = new Size(614, 32);
             pnlAcao.TabIndex = 5;
@@ -147,7 +147,7 @@ namespace ControleClientes
             gridClientes.Location = new Point(3, 38);
             gridClientes.Name = "gridClientes";
             gridClientes.ReadOnly = true;
-            gridClientes.Size = new Size(613, 315);
+            gridClientes.Size = new Size(522, 315);
             gridClientes.TabIndex = 2;
             // 
             // colId
@@ -184,7 +184,7 @@ namespace ControleClientes
             pnlPesquisa.Controls.Add(btnPesquisar);
             pnlPesquisa.Location = new Point(0, 6);
             pnlPesquisa.Name = "pnlPesquisa";
-            pnlPesquisa.Size = new Size(610, 28);
+            pnlPesquisa.Size = new Size(519, 28);
             pnlPesquisa.TabIndex = 5;
             // 
             // txtPesquisarNome
@@ -193,7 +193,7 @@ namespace ControleClientes
             txtPesquisarNome.Location = new Point(3, 3);
             txtPesquisarNome.Name = "txtPesquisarNome";
             txtPesquisarNome.PlaceholderText = "Pesquisar por nome";
-            txtPesquisarNome.Size = new Size(492, 23);
+            txtPesquisarNome.Size = new Size(401, 23);
             txtPesquisarNome.TabIndex = 0;
             // 
             // btnPesquisar
@@ -201,7 +201,7 @@ namespace ControleClientes
             btnPesquisar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnPesquisar.Image = Properties.Resources.search;
             btnPesquisar.ImageAlign = ContentAlignment.MiddleLeft;
-            btnPesquisar.Location = new Point(499, 3);
+            btnPesquisar.Location = new Point(408, 3);
             btnPesquisar.Name = "btnPesquisar";
             btnPesquisar.Size = new Size(104, 23);
             btnPesquisar.TabIndex = 1;
@@ -493,7 +493,7 @@ namespace ControleClientes
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Ivory;
-            ClientSize = new Size(621, 393);
+            ClientSize = new Size(530, 393);
             Controls.Add(tcCliente);
             Name = "ClienteForm";
             Text = "ClienteForm";

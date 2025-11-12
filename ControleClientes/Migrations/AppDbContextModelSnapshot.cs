@@ -90,6 +90,35 @@ namespace ControleClientes.Migrations
                     b.ToTable("Clientes");
                 });
 
+            modelBuilder.Entity("ControleClientes.Servico", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Categoria")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Descricao")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Preco")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Servicos");
+                });
+
             modelBuilder.Entity("ControleClientes.Cliente", b =>
                 {
                     b.HasOne("ControleClientes.Cidade", "Cidade")

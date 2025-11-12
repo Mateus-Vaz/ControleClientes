@@ -31,12 +31,13 @@
             menuStrip1 = new MenuStrip();
             cadastroToolStripMenuItem = new ToolStripMenuItem();
             clienteToolStripMenuItem1 = new ToolStripMenuItem();
+            cidadeToolStripMenuItem = new ToolStripMenuItem();
             janelaToolStripMenuItem = new ToolStripMenuItem();
             cascataToolStripMenuItem = new ToolStripMenuItem();
             ladoALadoHorizontalToolStripMenuItem = new ToolStripMenuItem();
             ladoALadoVerticalToolStripMenuItem = new ToolStripMenuItem();
             iconesMinimizadosToolStripMenuItem = new ToolStripMenuItem();
-            cidadeToolStripMenuItem = new ToolStripMenuItem();
+            serviçosToolStripMenuItem = new ToolStripMenuItem();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -51,7 +52,7 @@
             // 
             // cadastroToolStripMenuItem
             // 
-            cadastroToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { clienteToolStripMenuItem1, cidadeToolStripMenuItem });
+            cadastroToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { clienteToolStripMenuItem1, cidadeToolStripMenuItem, serviçosToolStripMenuItem });
             cadastroToolStripMenuItem.Name = "cadastroToolStripMenuItem";
             cadastroToolStripMenuItem.Size = new Size(66, 20);
             cadastroToolStripMenuItem.Text = "Cadastro";
@@ -62,6 +63,13 @@
             clienteToolStripMenuItem1.Size = new Size(180, 22);
             clienteToolStripMenuItem1.Text = "Cliente";
             clienteToolStripMenuItem1.Click += clienteToolStripMenuItem1_Click;
+            // 
+            // cidadeToolStripMenuItem
+            // 
+            cidadeToolStripMenuItem.Name = "cidadeToolStripMenuItem";
+            cidadeToolStripMenuItem.Size = new Size(180, 22);
+            cidadeToolStripMenuItem.Text = "Cidade";
+            cidadeToolStripMenuItem.Click += cidadeToolStripMenuItem_Click;
             // 
             // janelaToolStripMenuItem
             // 
@@ -98,12 +106,12 @@
             iconesMinimizadosToolStripMenuItem.Text = "Icones minimizados";
             iconesMinimizadosToolStripMenuItem.Click += iconesMinimizadosToolStripMenuItem_Click;
             // 
-            // cidadeToolStripMenuItem
+            // serviçosToolStripMenuItem
             // 
-            cidadeToolStripMenuItem.Name = "cidadeToolStripMenuItem";
-            cidadeToolStripMenuItem.Size = new Size(180, 22);
-            cidadeToolStripMenuItem.Text = "Cidade";
-            cidadeToolStripMenuItem.Click += cidadeToolStripMenuItem_Click;
+            serviçosToolStripMenuItem.Name = "serviçosToolStripMenuItem";
+            serviçosToolStripMenuItem.Size = new Size(180, 22);
+            serviçosToolStripMenuItem.Text = "Serviços";
+            serviçosToolStripMenuItem.Click += serviçosToolStripMenuItem_Click;
             // 
             // MenuForm
             // 
@@ -133,5 +141,6 @@
         private ToolStripMenuItem ladoALadoVerticalToolStripMenuItem;
         private ToolStripMenuItem iconesMinimizadosToolStripMenuItem;
         private ToolStripMenuItem cidadeToolStripMenuItem;
+        private ToolStripMenuItem serviçosToolStripMenuItem;
     }
 }
