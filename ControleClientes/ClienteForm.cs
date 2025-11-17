@@ -11,7 +11,7 @@ using System.Windows.Forms;
 
 namespace ControleClientes
 {
-    public partial class ClienteForm : Form 
+    public partial class ClienteForm : Form
     {
         private readonly ClienteRepository _repository;
         private int? editingId = null;

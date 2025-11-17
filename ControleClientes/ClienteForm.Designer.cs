@@ -241,7 +241,7 @@ namespace ControleClientes
             tpClienteCadastro.Location = new Point(4, 24);
             tpClienteCadastro.Name = "tpClienteCadastro";
             tpClienteCadastro.Padding = new Padding(3);
-            tpClienteCadastro.Size = new Size(616, 388);
+            tpClienteCadastro.Size = new Size(525, 388);
             tpClienteCadastro.TabIndex = 1;
             tpClienteCadastro.Text = "Cadastro";
             // 
